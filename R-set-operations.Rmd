@@ -59,6 +59,8 @@ source("geom-rrect.R", local=knitr::knit_global())
 # b <- list(6, 7, 8, 9, 10)
 c <- tibble(a=1:5, b=6:10)
 
+# 2 NOT INTERSECTING
+
 w <- 120
 h <- w * (2/3)
 ax <- w * (4/15)
@@ -97,6 +99,8 @@ source("geom-rrect.R", local=knitr::knit_global())
 a <- list(1, 2, 3, 4, 5)
 b <- list(6, 7, 8, 9, 10)
 
+# 2 INTERSECTING
+
 ggplot() + theme_void() +
   geom_rrect(aes(xmin=0, xmax=30, ymin=0, ymax=20), fill="blue", color="NA", size=0, alpha=0.2,
              radius=unit(12, "pt")) +
@@ -124,6 +128,8 @@ source("geom-rrect.R", local=knitr::knit_global())
 
 a <- list(1, 2, 3, 4, 5)
 b <- list(6, 7, 8, 9, 10)
+
+# 3 NOT INTERSECTING
 
 ggplot() + theme_void() +
   geom_rrect(aes(xmin=0, xmax=30, ymin=0, ymax=30), fill="blue", color="NA", size=0, alpha=0.2,
@@ -153,6 +159,8 @@ source("geom-rrect.R", local=knitr::knit_global())
 a <- list(1, 2, 3, 4, 5)
 b <- list(6, 7, 8, 9, 10)
 c <- list(11, 12, 13, 14, 15)
+
+# 3 INTERSECTING
 
 ggplot() + theme_void() +
   geom_rrect(aes(xmin=0, xmax=30, ymin=0, ymax=30), fill="blue", color="NA", size=0, alpha=0.2,
