@@ -1,0 +1,178 @@
+---
+title: "R-set-operations"
+author: "sayan"
+date: "7/5/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Set Graphics
+
+```{r, fig.width=6, fig.height=4.2, warning = FALSE}
+library(ggplot2)
+library(tibble)
+library(ggforce)
+library(ggwordcloud)
+library(extrafont)
+library(ggrepel)
+source("geom-rrect.R", local=knitr::knit_global())
+
+a <- list(1, 2, 3, 4, 5)
+b <- list(6, 7, 8, 9, 10)
+
+c <- tibble(a=1:5, b=6:10)
+
+font_import(paths="./fonts", prompt=F)
+loadfonts(device="win")
+
+ggplot() +
+  theme_void() +
+  theme(text=element_text(family="Gill Sans")) +
+  geom_rrect(aes(xmin=0, xmax=30, ymin=0, ymax=20), fill="blue", color="NA", size=0, alpha=0.4,
+             radius=unit(12, "pt")) +
+  geom_circle(aes(x0 = 8, y0 = 10, r=6), fill="red", color="NA", alpha=0.4, size=0) +
+  geom_circle(aes(x0 = 22, y0 = 10, r=6), fill="green4", color="NA", alpha=0.4, size=1) +
+  geom_text(aes(x=29, y=21, label='Omega', family="Gill Sans"), size=8, parse = TRUE) +
+  geom_text(aes(x=12, y=16, label='A'), size=8, family="Gill Sans") +
+  geom_text(aes(x=26, y=16, label='B', family="Gill Sans"), size=8) +
+  geom_text_wordcloud(mapping = aes(x=8, y=10, label=a, family="Gill Sans"), size=6, rstep=.01,
+                      eccentricity=1, grid_size = 50)
+
+
+```
+```{r, fig.width=6, fig.height=4.2, warning = FALSE}
+library(ggplot2)
+library(tibble)
+library(ggforce)
+library(ggwordcloud)
+library(extrafont)
+library(ggrepel)
+source("geom-rrect.R", local=knitr::knit_global())
+
+# library(Cairo)
+# CairoWin()
+
+# a <- list(1, 2, 3, 4, 5)
+# b <- list(6, 7, 8, 9, 10)
+c <- tibble(a=1:5, b=6:10)
+
+w <- 120
+h <- w * (2/3)
+ax <- w * (4/15)
+ay <- h/2
+bx <- w * (11/15)
+by <- h/2
+r <- w * (1/5)
+
+ggplot(c) +
+  geom_rrect(aes(xmin=0, xmax=w, ymin=0, ymax=h), fill="blue", color="NA", size=0, alpha=0.2,
+             radius=unit(12, "pt")) +
+  geom_text(aes(x=w * (29/30), y=h * (21/20), label='Omega'), size=8, parse = TRUE) +
+  # A
+  geom_text(aes(x=w*(6/15), y=ay+r, label='A'), size=8) +
+  geom_circle(aes(x0 = ax, y0 = ay, r=r), fill="red", color="NA", alpha=0.2, size=1) +
+  # geom_text_repel(aes(x=ax, y=ay, label=a), size=6, segment.alpha=0, force=1,
+  #                 box.padding=unit(0.4, 'lines'), nudge_x=0, nudge_y=0) +
+  geom_text_wordcloud(aes(x=ax, y=ay, label=b), size=6, rstep=.01, grid_size = 50, eccentricity=1) +
+  # B
+  geom_text(aes(x=w*(13/15), y=by+r, label='B'), size=8) +
+  geom_circle(aes(x0 = bx, y0 = by, r=r), fill="green4", color="NA", alpha=0.2, size=1) +
+  geom_text_repel(aes(x=bx, y=by, label=b), size=6, segment.alpha=0, force=1,
+                  box.padding=unit(0.4, 'lines')) +
+  theme_void()
+```
+
+```{r, fig.width=6, fig.height=4, warning = FALSE}
+library(ggplot2)
+library(tibble)
+library(ggforce)
+library(ggwordcloud)
+library(extrafont)
+library(ggrepel)
+source("geom-rrect.R", local=knitr::knit_global())
+
+a <- list(1, 2, 3, 4, 5)
+b <- list(6, 7, 8, 9, 10)
+
+ggplot() + theme_void() +
+  geom_rrect(aes(xmin=0, xmax=30, ymin=0, ymax=20), fill="blue", color="NA", size=0, alpha=0.2,
+             radius=unit(12, "pt")) +
+  geom_text(aes(x=29, y=21, label='Omega'), size=8, parse = TRUE) +
+  geom_circle(aes(x0 = 11, y0 = 10, r=7), size=1, color="NA", fill="grey50", alpha=0.3) +
+  geom_text(aes(x=4, y=16, label='A'), size=8) +
+  geom_text_repel(aes(x=9, y=10, label=a), size=6, segment.alpha=0, force=1,
+                  box.padding=unit(0.3, 'lines'), direction="y") +
+  geom_circle(aes(x0 = 19, y0 = 10, r=7), size=1, color="NA", fill="grey50", alpha=0.6) +
+  geom_text(aes(x=26, y=16, label='B'), size=8) +
+  geom_text_repel(aes(x=21, y=10, label=b), size=6, segment.alpha=0, force=1,
+                  box.padding=unit(0.3, 'lines'), direction="y") +
+  geom_text_repel(aes(x=15, y=10, label=c("11", "12")), size=6, segment.alpha=0, force=1,
+                  box.padding=unit(0.3, 'lines'), direction="y")
+```
+
+```{r, fig.width=6, fig.height=6.1, warning = FALSE}
+library(ggplot2)
+library(tibble)
+library(ggforce)
+library(ggwordcloud)
+library(extrafont)
+library(ggrepel)
+source("geom-rrect.R", local=knitr::knit_global())
+
+a <- list(1, 2, 3, 4, 5)
+b <- list(6, 7, 8, 9, 10)
+
+ggplot() + theme_void() +
+  geom_rrect(aes(xmin=0, xmax=30, ymin=0, ymax=30), fill="blue", color="NA", size=0, alpha=0.2,
+             radius=unit(12, "pt")) +
+  geom_text(aes(x=29, y=31, label='Omega'), size=8, parse = TRUE) +
+  geom_circle(aes(x0 = 8, y0 = 20, r=6), color="NA", fill="grey50", alpha=0.6) +
+  geom_text(aes(x=12, y=26, label='A'), size=8) +
+  geom_text_repel(aes(x=8, y=20, label=a), size=6, segment.alpha=0, force=1,
+                  box.padding=unit(0.3, 'lines'), direction="x") +
+  geom_circle(aes(x0 = 22, y0 = 20, r=6), color="NA", fill="grey50", alpha=0.6) +
+  geom_text(aes(x=26, y=26, label='B'), size=8) +
+  geom_text_repel(aes(x=22, y=20, label=b), size=6, segment.alpha=0, force=1,
+                  box.padding=unit(0.3, 'lines'), direction="x") +
+  geom_circle(aes(x0 = 15, y0 = 8, r=6), color="NA", fill="grey50", alpha=0.6) +
+  geom_text(aes(x=20, y=3, label='C'), size=8)
+```
+
+```{r, fig.width=6, fig.height=6, warning = FALSE}
+library(ggplot2)
+library(tibble)
+library(ggforce)
+library(ggwordcloud)
+library(extrafont)
+library(ggrepel)
+source("geom-rrect.R", local=knitr::knit_global())
+
+a <- list(1, 2, 3, 4, 5)
+b <- list(6, 7, 8, 9, 10)
+c <- list(11, 12, 13, 14, 15)
+
+ggplot() + theme_void() +
+  geom_rrect(aes(xmin=0, xmax=30, ymin=0, ymax=30), fill="blue", color="NA", size=0, alpha=0.2,
+             radius=unit(12, "pt")) +
+  geom_text(aes(x=29, y=31, label='Omega'), size=8, parse = TRUE) +
+  geom_circle(aes(x0 = 10, y0 = 18, r=7), color="NA", fill="grey50", alpha=0.6) +
+  geom_text(aes(x=4, y=24, label='A'), size=8) +
+  # geom_text_repel(aes(x=8, y=20, label=a), size=6, segment.alpha=0, force=1,
+  #                 box.padding=unit(0.4, 'lines'), nudge_x=0, nudge_y=0, direction="x") +
+  geom_text(aes(x=8, y=20, label='2,3,4,5'), size=6) +
+  geom_circle(aes(x0 = 20, y0 = 18, r=7), color="NA", fill="grey50", alpha=0.6) +
+  geom_text(aes(x=26, y=24, label='B'), size=8) +
+  # geom_text_repel(aes(x=22, y=20, label=b), size=6, segment.alpha=0, force=1,
+  #                 box.padding=unit(0.4, 'lines'), direction="x") +
+  geom_text(aes(x=22, y=20, label='7,8,9,10'), size=6) +
+  geom_circle(aes(x0 = 15, y0 = 10, r=7), color="NA", fill="grey50", alpha=0.6) +
+  geom_text(aes(x=20, y=3, label='C'), size=8) +
+  geom_text(aes(x=15, y=9, label='12,13,14,15'), size=6) +
+  geom_text(aes(x=18, y=14, label='11'), size=6) +
+  geom_text(aes(x=15, y=19, label='6'), size=6) +
+  geom_text(aes(x=12, y=14, label='5'), size=6) +
+  geom_text(aes(x=15, y=15.5, label='1'), size=6)
+```

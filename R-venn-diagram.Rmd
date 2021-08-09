@@ -1,0 +1,91 @@
+---
+title: "venn-diagram"
+author: "sayan"
+date: "6/20/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## ggVennDiagram
+
+```{r ggvenndiagram, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(plotly)
+library(ggVennDiagram)
+
+genes <- paste("gene",1:1000,sep="")
+set.seed(20210419)
+x <- list(A=sample(genes,300),
+          B=sample(genes,525),
+          C=sample(genes,440),
+          D=sample(genes,350))
+
+ggVennDiagram(x) + scale_fill_gradient(low="blue",high = "red")
+```
+
+## ggvenn
+
+```{r ggvenn, message=FALSE, warning=FALSE}
+library(ggvenn)
+
+a <- list(`Set 1` = c(1, 3, 5, 7, 9),
+          `Set 2` = c(1, 5, 9, 13),
+          `Set 3` = c(1, 2, 8, 9),
+          `Set 4` = c(6, 7, 10, 12))
+ggvenn(a, c("Set 1", "Set 2"), show_elements = TRUE, stroke_linetype = 1, stroke_size = 0.5,
+  set_name_color = "black", set_name_size = 6,
+  fill_color = c("purple", "gold", "gold", "gold"), fill_alpha = 0.5)            # draw two-set venn
+ggvenn(a, c("Set 1", "Set 2", "Set 3"), show_elements = TRUE, stroke_linetype = 1, stroke_size = 0.5,
+  set_name_color = "black", set_name_size = 6,
+  fill_color = c("purple", "gold", "gold", "gold"), fill_alpha = 0.5)   # draw three-set venn
+ggvenn(a, show_elements = TRUE, stroke_linetype = 1, stroke_size = 0.5,
+  set_name_color = "black", set_name_size = 6,
+  fill_color = c("purple", "gold", "gold", "gold"), fill_alpha = 0.5)   # without set names, the first 4 elements in list will be chose to draw four-set venn
+
+# d <- tibble(value   = c('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'),
+#             `Set 1` = c(T, F, T, T, F, T, F, T, F,  F,  F),
+#             `Set 2` = c(T, F, F, T, F, F, F, T, F,  F,  T),
+#             `Set 3` = c(T, T, F, F, F, F, T, T, F,  F,  F),
+#             `Set 4` = c(F, F, F, F, T, T, F, F, T,  T,  F))
+# ggvenn(d, c("Set 1", "Set 2"))           # draw two-set venn
+# ggvenn(d, c("Set 1", "Set 2", "Set 3"))  # draw three-set venn
+# ggvenn(d, show_elements = TRUE, stroke_linetype = 2, stroke_size = 0.5,
+#   set_name_color = "red", set_name_size = 6,
+#   fill_color = c("purple", "gold", "gold", "gold"), fill_alpha = 0.5)  # without set names, the first 4 logical column in data.frame will be chose to draw four-set venn
+
+# draw two-set venn (use A, B in aes)2  
+# ggplot(d, aes(A = `Set 1`, B = `Set 2`)) +
+#   geom_venn(stroke_linetype = 2, stroke_size = 0.5,
+#   set_name_color = "black", set_name_size = 6,
+#   fill_color = c("purple", "gold", "gold", "gold"), fill_alpha = 0.5,
+#   show_elements = TRUE, label_sep = ",") + 
+#   theme_void() + coord_fixed()
+
+# draw three-set venn (use A, B, C in aes)
+# ggplot(d, aes(A = `Set 1`, B = `Set 2`, C = `Set 3`),
+#   show_elements = TRUE, label_sep = ",") +
+#   geom_venn(stroke_linetype = 1, stroke_size = 0.5,
+#   set_name_color = "black", set_name_size = 6,
+#   fill_color = c("purple", "gold", "gold", "gold"), fill_alpha = 0.5) + 
+#   theme_void() + coord_fixed()
+
+# draw four-set venn (use A, B, C, D in aes)
+# ggplot(d, aes(A = `Set 1`, B = `Set 2`, C = `Set 3`, D = `Set 4`)) +
+#   geom_venn(stroke_linetype = 1, stroke_size = 0.5,
+#   set_name_color = "black", set_name_size = 6,
+#   fill_color = c("purple", "gold", "gold", "gold"), fill_alpha = 0.5,
+#   show_elements = TRUE, label_sep = ",") + theme_void() + coord_fixed()
+```
+
+## venn
+```{r venn, message=FALSE, warning=FALSE}
+library(venn)
+
+venn("01 + 10 + 00")
+venn("10 + 01") + text(aes(x=50, y=50, label='A'), size=8)
+
+venn("001 + 011")
+```
