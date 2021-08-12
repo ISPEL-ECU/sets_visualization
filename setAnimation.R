@@ -32,18 +32,4 @@ createSetAnimation <- function(set1Name, set1Elements, set2Name, set2Elements, c
   animate(d)
 }
 
-createSetAnimation('A', list('1', '2'), 'B', list('4', '5'), '3')
-
-df <- read.table(text = "node intensity Lon Lat grp
-                          SRC .9  40  60 1
-                          SRC .9  40  60 2
-                          SRC .9  40  60 3
-                            TGT .89 80   40 1
-                            TGT  .8 40 30 2
-                            TGT .99 30     20 3", header = TRUE)
-ggm <- ggplot(data = df, aes(x = Lon, y = Lat, size= intensity, colour=node, group = grp)) +
-  geom_point(alpha=.5)+
-  transition_states(node)+
-  labs(title = "test")+ 
-  shadow_wake(wake_length = 0.5)
-ggm
+# createSetAnimation('A', list('1', '2'), 'B', list('4', '5'), '3')
