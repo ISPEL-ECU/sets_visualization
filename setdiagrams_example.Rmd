@@ -1,7 +1,6 @@
 ---
-title: "setdiagrams_example"
-author: "sayan"
-date: "8/11/2021"
+title: "Set Diagrams Example"
+author: "ECU ISPeL"
 output: html_document
 ---
 
