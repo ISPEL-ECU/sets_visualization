@@ -1,0 +1,64 @@
+---
+title: "setdiagrams_example"
+author: "sayan"
+date: "8/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+## Set Diagram Examples
+
+One set:
+
+```{r}
+source("drawSetDiagram.R", local = knitr::knit_global())
+
+drawSetDiagram('A', c('1'))
+drawSetDiagram('A', c('1', '2'))
+drawSetDiagram('A', c('1', '2', '3'))
+drawSetDiagram('A', c('1', '2', '3', '4'))
+drawSetDiagram('A', c('1', '2', '3', '4', '5'))
+```
+
+Two disjoint sets: 
+
+```{r}
+drawSetDiagram('A', c('1', '2', '3'), 'B', c('4', '5', '6'))
+```
+
+Two intersecting sets:
+
+```{r}
+drawSetDiagram('A', c('1', '2', '3', '4', '5'), 'B', c('4', '5', '6', '7'))
+```
+
+Three disjoint sets:
+
+```{r}
+drawSetDiagram('A', c('1', '2', '3'), 'B', c('4', '5', '6'), 'C', c('7', '8', '9'))
+```
+
+Three sets with one intersection:
+
+```{r echo=FALSE}
+drawSetDiagram('A', c('1', '2', '3', '4'), 'B', c('4', '5', '6'), 'C', c('7', '8', '9'))
+drawSetDiagram('A', c('1', '2', '3'), 'B', c('4', '5', '6', '7'), 'C', c('7', '8', '9'))
+drawSetDiagram('A', c('1', '2', '3', '7'), 'B', c('4', '5', '6'), 'C', c('7', '8', '9'))
+```
+
+Three sets with two intersections:
+
+```{r}
+drawSetDiagram('A', c('1', '2', '3', '4'), 'B', c('4', '5', '6', '7'), 'C', c('7', '8', '9'))
+drawSetDiagram('A', c('1', '2', '3', '4'), 'B', c('4', '5', '6'), 'C', c('7', '8', '9', '1'))
+drawSetDiagram('A', c('1', '2', '3'), 'B', c('4', '5', '6', '7'), 'C', c('7', '8', '9', '1'))
+```
+
+Three intersecting sets:
+
+```{r}
+drawSetDiagram('A', c('1', '2', '3', '4'), 'B', c('1', '4', '5', '6', '7', '8'), 'C', c('1', '7', '8', '9'))
+```
